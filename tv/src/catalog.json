@@ -1,0 +1,104 @@
+{
+  "sims": [
+    {
+      "id": "tbm",
+      "title": "Tunnel Boring Machine",
+      "over": "How a",
+      "page": "tbm.html",
+      "poster": "posters/tbm.jpg",
+      "live": true,
+      "blurb": "A 12 m machine boring under a street. Turn the screw too fast and the street sinks.",
+      "meta": "7 chapters · live 3D · 1:30 model",
+      "about": "A 1:30 model of a 12 m earth pressure balance tunnel boring machine under a street with houses. The cutterhead grinds the ground, the spoil fills a pressurised chamber, a screw conveyor takes it out. The chamber pressure must balance the ground and water pressure at the face. Settlement follows the Peck (1969) Gaussian trough, drawn 20 times exaggerated.",
+      "params": {
+        "cut": "how far the model is cut in half to show the inside: 0 whole, 1 fully cut open",
+        "ground": "the soil the machine bores through: clay, sand or granite",
+        "rpm": "cutterhead rotation speed in rpm (real machines turn 1 to 3 rpm)",
+        "screw": "screw conveyor speed as a fraction of the balanced speed: 1 balanced, above 1 the screw takes spoil out faster than the face is cut so chamber pressure drops and the street above SINKS (1.9 is clearly too fast), below 1 the chamber over-pressurises and the street HEAVES (0.5 is clearly too slow)",
+        "time": "playback speed of the process, 0 slow to 1 very fast",
+        "hl": "what to highlight: all, muck (the spoil path), thrust (the jacks), ring (the lining segments)"
+      },
+      "moves": [
+        "To show the street sinking or heaving, jump to chapter 'street' first, then set 'screw'.",
+        "To show the inside, set 'cut' to 1.",
+        "To compare soils, set 'ground'."
+      ],
+      "suggest": ["What happens if the screw turns faster?", "What if we dig through granite?", "Show me how a ring is built"]
+    },
+    {
+      "id": "starship",
+      "title": "Starship",
+      "over": "Inside the",
+      "page": "starship.html",
+      "poster": "posters/starship.jpg",
+      "live": true,
+      "blurb": "Starship V3 above the clouds. Cut it open, follow the propellant, watch hot staging.",
+      "meta": "6 chapters · live 3D · public figures",
+      "about": "The full Starship V3 stack about 45 seconds after liftoff, above a deck of clouds. Super Heavy has 33 Raptor 3 engines, the ship has 6. The tanks hold liquid oxygen and liquid methane. At main engine cutoff the ship lights its engines while still attached to the booster (hot staging) and pushes off. Dimensions come from public figures; the flight model is simplified.",
+      "params": {
+        "follow": "which fluid to highlight inside the vehicle: all, lox (liquid oxygen), ch4 (liquid methane), fire (combustion)",
+        "view": "whole (the real vehicle in the sky), cut (a cutaway that shows the tanks inside, in a studio), exploded (every section pulled apart)",
+        "clock": "mission clock in seconds since liftoff; main engine cutoff and hot staging happen near the top of the range",
+        "rate": "how fast time runs: 0 frozen, 0.1 slow motion, 1 real time",
+        "stage": "a button: any value triggers hot staging now"
+      },
+      "moves": [
+        "To show the inside or the tanks, jump to chapter 'tanks' and set 'view' to cut and 'follow' to lox or ch4.",
+        "To show stage separation, jump to chapter 'staging' (it plays hot staging by itself); setting 'stage' replays it.",
+        "To show the engines, jump to chapter 'engines'."
+      ],
+      "suggest": ["What's inside the rocket?", "When does the top part come off?", "How many engines does it have?"]
+    },
+    {
+      "id": "tsunami",
+      "title": "Tsunami",
+      "over": "How an earthquake makes a",
+      "page": "tsunami.html",
+      "poster": "posters/tsunami.jpg",
+      "live": true,
+      "blurb": "A subduction zone off a 120 km coast, modelled on Tohoku 2011. How high would the sea wall have to be?",
+      "meta": "7 chapters · live 3D · modelled on Tohoku 2011",
+      "about": "A 120 by 120 km coast with a port city, modelled on the 2011 Tohoku earthquake (Mw 9.1, run-up up to 40.5 m). Rupture size scales with magnitude (Wells and Coppersmith), slip = M0 / (mu L W), sea floor uplift is about half the slip, and the wave is solved over the sea floor to give run-up at the city. The sea wall in front of the city can be raised; if it is taller than the wave at the shore, the city stays dry.",
+      "params": {
+        "mw": "earthquake moment magnitude: 9.1 is Tohoku 2011, 9.5 is Chile 1960, 7.5 makes a much smaller wave",
+        "wall": "sea wall height in metres in front of the city (Japan's tallest walls in 2011 were about 15 m; at Mw 9.1 a wall around 45 m or more holds)",
+        "strain": "how much of the strain is stored on the locked fault, 0 to 1",
+        "time": "position on the timeline, 0 before the quake to 1 long after the wave arrives",
+        "go": "a button: any value lets the fault go again and replays the quake"
+      },
+      "moves": [
+        "To answer whether a wall can stop it, jump to chapter 'wall' first, then set 'wall' (try 45 m or more at Mw 9.1).",
+        "To show a smaller quake, set 'mw' then jump to chapter 'city'.",
+        "To show the wave crossing the ocean, jump to chapter 'wave'."
+      ],
+      "suggest": ["Can a wall stop it?", "What if the earthquake was smaller?", "How fast is the wave?"]
+    },
+    {
+      "id": "fusion",
+      "title": "Fusion Power Plant",
+      "over": "Inside a",
+      "poster": "",
+      "live": false,
+      "blurb": "A tokamak scaled to a 1 GW power station. Coming to TV next.",
+      "meta": "Coming soon"
+    },
+    {
+      "id": "collider",
+      "title": "Particle Collider",
+      "over": "Inside a",
+      "poster": "",
+      "live": false,
+      "blurb": "A ring, a detector cavern and live particle tracks. Coming to TV next.",
+      "meta": "Coming soon"
+    },
+    {
+      "id": "printer",
+      "title": "Metal 3D Printer",
+      "over": "How a",
+      "poster": "",
+      "live": false,
+      "blurb": "A laser melts copper powder into a rocket engine, layer by layer. Coming to TV next.",
+      "meta": "Coming soon"
+    }
+  ]
+}
