@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#050608" />
+    <title>Starship · Megastructures TV</title>
+    <meta name="description" content="Starship 45 seconds after liftoff, just above the clouds: cutaway, tanks, engines and hot staging." />
+    <script type="module" crossorigin src="./assets/starship-DfXPhwbM.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/tv-DT7ePuF8.js">
+    <link rel="modulepreload" crossorigin href="./assets/remote-overlay-DttutIvP.js">
+    <link rel="modulepreload" crossorigin href="./assets/sim-shell-99_Ayh-q.js">
+    <link rel="stylesheet" crossorigin href="./assets/tv-BoP2uZLo.css">
+    <link rel="stylesheet" crossorigin href="./assets/sim-shell-B42Bv7de.css">
+    <link rel="stylesheet" crossorigin href="./assets/starship-CVRV9Xqg.css">
+  </head>
+  <body>
+    <canvas id="gl"></canvas>
+    <div id="labels" aria-hidden="true"></div>
+
+    <section class="panel left">
+      <div class="over">Inside the</div>
+      <h1 id="title">Starship</h1>
+      <div class="kicker" id="kicker"></div>
+      <div class="stats" id="stats"></div>
+      <p class="text" id="text"></p>
+    </section>
+
+    <section class="panel right" id="panel">
+      <div class="controls" id="controls"></div>
+    </section>
+    <div id="cap" aria-live="polite"></div>
+    <nav class="bar" aria-label="Chapters">
+      <button id="play" class="play playing" aria-label="Pause the tour"></button>
+      <div class="tabs" id="tabs"></div>
+      <span class="auto" id="auto">plays itself</span>
+      <div class="progress"><div id="progress"></div></div>
+    </nav>
+
+    <div id="cursor" aria-hidden="true"></div>
+
+  </body>
+</html>
