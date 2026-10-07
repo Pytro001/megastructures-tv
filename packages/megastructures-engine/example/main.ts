@@ -13,7 +13,7 @@ const pipe = new FilmPipeline(canvas)
 pipe.setSamples(q.samples)
 const scene = new THREE.Scene()
 scene.environment = studioEnvironment(pipe.renderer)
-scene.environmentIntensity = 0.5
+scene.environmentIntensity = 1.4
 const cam = new THREE.PerspectiveCamera(30, 16 / 9, 0.05, 50)
 pipe.layers.layers = [{ scene, camera: cam }]
 
