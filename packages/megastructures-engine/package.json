@@ -13,5 +13,5 @@
   "files": ["src", "example", "README.md", "LICENSE"],
   "keywords": ["three", "webgl", "simulation", "tv", "fire-tv", "d-pad", "cutaway", "post-processing"],
   "peerDependencies": { "three": ">=0.170.0" },
-  "repository": { "type": "git", "url": "[ENGINE_REPO]" }
+  "repository": { "type": "git", "url": "https://github.com/Pytro001/megastructures-engine" }
 }

@@ -1,17 +1,17 @@
 # Submission: Megastructures TV
 
-Build, Ship, Shape: Amazon Developer Hackathon. Paste each block into the matching field. Placeholders: `[COUNTRY]`, `[REPO]`, `[ENGINE_REPO]`, `[VIDEO]`, `[DEMO]`.
+Build, Ship, Shape: Amazon Developer Hackathon. Paste each block into the matching field. Placeholders: `France`, `https://github.com/Pytro001/megastructures-tv`, `https://github.com/Pytro001/megastructures-engine`, `[VIDEO]`, `[DEMO]`.
 
 ## Basics
 
 - **Project name:** Megastructures TV
 - **Tagline (under 200 characters):** Interactive engineering films for Fire TV. Ask the remote "what if?" and Claude on Amazon Bedrock changes the live 3D simulation in front of your family.
 - **Submitter type:** Individual
-- **Country of residence:** [COUNTRY]
+- **Country of residence:** France
 - **Track:** Fire TV
 - **Mini challenges:** AWS Builder, Open Source
 - **GitHub username:** Pytro001
-- **Repository:** [REPO] (public, MIT license, license visible in the repo About)
+- **Repository:** https://github.com/Pytro001/megastructures-tv (public, MIT license, license visible in the repo About)
 - **Video (public, English, under 3 minutes):** [VIDEO]
 - **Try it:** [DEMO] (or run locally: `npm install && npm run dev`, then open http://127.0.0.1:5302/)
 
@@ -106,8 +106,8 @@ Why not deployed: the only credential available on the build machine was a Bedro
 
 ## Open Source mini challenge
 
-- **Contribution URL:** [ENGINE_REPO] (`megastructures-engine`, also in `packages/megastructures-engine` of [REPO])
-- **Repository URL:** [ENGINE_REPO]
+- **Contribution URL:** https://github.com/Pytro001/megastructures-engine (`megastructures-engine`, also in `packages/megastructures-engine` of https://github.com/Pytro001/megastructures-tv)
+- **Repository URL:** https://github.com/Pytro001/megastructures-engine
 - **GitHub username:** Pytro001
 - **License:** MIT
 - **What it does:** a small Three.js toolkit for documentary style engineering simulations that also run on a TV. It has lathe and pipe geometry, one physically based material with procedural detail and section caps for cutaways, a film look post pipeline (bloom, lens flare, grain, depth of field), a fixed light budget, labels pinned to 3D points, and a TV kit: Fire TV remote key handling, a spatial D-pad focus engine, a dynamic resolution governor, TV quality presets and a frame rate meter.
