@@ -1,0 +1,47 @@
+{
+  "sim": "starship",
+  "question": "When does the top part come off?",
+  "recordedAt": "2026-10-07T17:59:07.178Z",
+  "rawToolCalls": [
+    {
+      "name": "jumpToChapter",
+      "input": {
+        "sim": "starship",
+        "chapter": "staging"
+      }
+    },
+    {
+      "name": "explain",
+      "input": {
+        "text": "The ship separates from the booster about two and a half minutes after liftoff during hot staging. Watch as the ship lights its engines and pushes away from Super Heavy."
+      }
+    }
+  ],
+  "response": {
+    "source": "bedrock",
+    "question": "When does the top part come off?",
+    "say": "The ship separates from the booster about two and a half minutes after liftoff during hot staging. Watch as the ship lights its engines and pushes away from Super Heavy.",
+    "actions": [
+      {
+        "type": "jumpToChapter",
+        "sim": "starship",
+        "chapter": "staging",
+        "label": "Hot staging"
+      }
+    ],
+    "notes": [],
+    "ms": 3260,
+    "model": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "usage": {
+      "cacheReadInputTokenCount": 0,
+      "cacheReadInputTokens": 0,
+      "cacheWriteInputTokenCount": 0,
+      "cacheWriteInputTokens": 0,
+      "inputTokens": 1929,
+      "outputTokens": 126,
+      "serverToolUsage": {},
+      "totalTokens": 2055
+    },
+    "latencyMs": 3092
+  }
+}

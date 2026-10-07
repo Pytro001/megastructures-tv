@@ -1,0 +1,62 @@
+{
+  "sim": "tsunami",
+  "question": "Can a wall stop it?",
+  "recordedAt": "2026-10-07T17:59:29.141Z",
+  "rawToolCalls": [
+    {
+      "name": "jumpToChapter",
+      "input": {
+        "sim": "tsunami",
+        "chapter": "wall"
+      }
+    },
+    {
+      "name": "setParam",
+      "input": {
+        "sim": "tsunami",
+        "param": "wall",
+        "value": 45
+      }
+    },
+    {
+      "name": "explain",
+      "input": {
+        "text": "Yes, but it needs to be very tall. Watch as a 45 meter wall holds back the wave from this magnitude 9.1 quake, keeping the city dry."
+      }
+    }
+  ],
+  "response": {
+    "source": "bedrock",
+    "question": "Can a wall stop it?",
+    "say": "Yes, but it needs to be very tall. Watch as a 45 meter wall holds back the wave from this magnitude 9.1 quake, keeping the city dry.",
+    "actions": [
+      {
+        "type": "jumpToChapter",
+        "sim": "tsunami",
+        "chapter": "wall",
+        "label": "The wall"
+      },
+      {
+        "type": "setParam",
+        "sim": "tsunami",
+        "param": "wall",
+        "value": 45,
+        "label": "Sea wall"
+      }
+    ],
+    "notes": [],
+    "ms": 3744,
+    "model": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "usage": {
+      "cacheReadInputTokenCount": 0,
+      "cacheReadInputTokens": 0,
+      "cacheWriteInputTokenCount": 0,
+      "cacheWriteInputTokens": 0,
+      "inputTokens": 2007,
+      "outputTokens": 195,
+      "serverToolUsage": {},
+      "totalTokens": 2202
+    },
+    "latencyMs": 3591
+  }
+}

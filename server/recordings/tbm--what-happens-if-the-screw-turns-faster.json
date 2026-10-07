@@ -1,0 +1,62 @@
+{
+  "sim": "tbm",
+  "question": "What happens if the screw turns faster?",
+  "recordedAt": "2026-10-07T17:58:35.750Z",
+  "rawToolCalls": [
+    {
+      "name": "jumpToChapter",
+      "input": {
+        "sim": "tbm",
+        "chapter": "street"
+      }
+    },
+    {
+      "name": "setParam",
+      "input": {
+        "sim": "tbm",
+        "param": "screw",
+        "value": 1.9
+      }
+    },
+    {
+      "name": "explain",
+      "input": {
+        "text": "Watch the street above. When the screw turns too fast, it removes spoil faster than the cutterhead cuts, so the chamber pressure drops and the street sinks into the ground."
+      }
+    }
+  ],
+  "response": {
+    "source": "bedrock",
+    "question": "What happens if the screw turns faster?",
+    "say": "Watch the street above. When the screw turns too fast, it removes spoil faster than the cutterhead cuts, so the chamber pressure drops and the street sinks into the ground.",
+    "actions": [
+      {
+        "type": "jumpToChapter",
+        "sim": "tbm",
+        "chapter": "street",
+        "label": "The street"
+      },
+      {
+        "type": "setParam",
+        "sim": "tbm",
+        "param": "screw",
+        "value": 1.9,
+        "label": "Screw conveyor"
+      }
+    ],
+    "notes": [],
+    "ms": 4314,
+    "model": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "usage": {
+      "cacheReadInputTokenCount": 0,
+      "cacheReadInputTokens": 0,
+      "cacheWriteInputTokenCount": 0,
+      "cacheWriteInputTokens": 0,
+      "inputTokens": 2043,
+      "outputTokens": 201,
+      "serverToolUsage": {},
+      "totalTokens": 2244
+    },
+    "latencyMs": 3522
+  }
+}

@@ -1,4 +1,5 @@
 import { FILM, params, stepCssAnimations } from './env'
+import perf from '../perf-results.json'
 import './tv.css'
 import './card.css'
 
@@ -16,7 +17,21 @@ if (FILM) document.body.classList.add('tv-film')
 const LIVE = '<i class="b live">live</i>'
 const READY = '<i class="b ready">code ready</i>'
 
-if (which === 'built') {
+if (which === 'perf') {
+  // the numbers come from scripts/perf.mjs (output/perf.json), measured on a laptop GPU, not on a Fire TV Stick
+  const names: Record<string, string> = { tbm: 'Tunnel Boring Machine', starship: 'Starship', tsunami: 'Tsunami' }
+  const sims = [...new Set(perf.rows.map(r => r.sim))]
+  const max = Math.max(...perf.rows.map(r => r.fps)) / 0.8
+  root.className = 'c-perf'
+  root.innerHTML = `<h1>TV performance mode</h1><p class="sub">No multisampling, smaller shadow maps, a fixed light budget, lower ray march steps and terrain detail, dynamic resolution</p>
+    <div class="bars">${sims.map((s, i) => {
+      const d = perf.rows.find(r => r.sim === s && r.mode === 'desktop')!, t = perf.rows.find(r => r.sim === s && r.mode === 'TV mode')!
+      return `<div class="pr" style="--i:${i}"><div class="pn">${names[s] ?? s}</div>
+        <div class="pb"><i class="d" style="--w:${(d.fps / max) * 100}%"></i><span>${d.fps.toFixed(0)} fps</span></div>
+        <div class="pb"><i class="t" style="--w:${(t.fps / max) * 100}%"></i><span>${t.fps.toFixed(0)} fps</span></div></div>`
+    }).join('')}</div>
+    <div class="legend" style="--i:4"><i class="sw d"></i>desktop quality &nbsp;&nbsp; <i class="sw t"></i>TV mode &nbsp;&nbsp; measured at 1920x1080 on a laptop GPU, vsync off</div>`
+} else if (which === 'built') {
   const items = ['Fire OS shell', 'D-pad UI', 'Voice to simulation', 'TV performance mode', 'Open source engine']
   root.className = 'c-built'
   root.innerHTML = `<h1>Built during the hackathon</h1><ul>${items.map((t, i) => `<li style="--i:${i}"><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>${t}</li>`).join('')}</ul>`
@@ -44,5 +59,6 @@ if (which === 'built') {
 }
 
 if (FILM) {
+  stepCssAnimations(0)
   ;(window as unknown as { __film: unknown }).__film = { ready: true, step: (dt: number, n = 1) => { for (let i = 0; i < n; i++) stepCssAnimations(dt) } }
 }

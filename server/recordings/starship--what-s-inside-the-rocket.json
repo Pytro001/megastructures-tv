@@ -1,0 +1,63 @@
+{
+  "sim": "starship",
+  "question": "What's inside the rocket?",
+  "recordedAt": "2026-10-07T17:59:15.545Z",
+  "rawToolCalls": [
+    {
+      "name": "jumpToChapter",
+      "input": {
+        "sim": "starship",
+        "chapter": "tanks"
+      }
+    },
+    {
+      "name": "setParam",
+      "input": {
+        "sim": "starship",
+        "param": "view",
+        "value": "cut"
+      }
+    },
+    {
+      "name": "explain",
+      "input": {
+        "text": "Watch the cutaway reveal the giant tanks inside. The rocket carries liquid oxygen and liquid methane as propellants, which mix and burn in the engines to produce thrust."
+      }
+    }
+  ],
+  "response": {
+    "source": "bedrock",
+    "question": "What's inside the rocket?",
+    "say": "Watch the cutaway reveal the giant tanks inside. The rocket carries liquid oxygen and liquid methane as propellants, which mix and burn in the engines to produce thrust.",
+    "actions": [
+      {
+        "type": "jumpToChapter",
+        "sim": "starship",
+        "chapter": "tanks",
+        "label": "Tanks"
+      },
+      {
+        "type": "setParam",
+        "sim": "starship",
+        "param": "view",
+        "value": "cut",
+        "label": "Starship",
+        "display": "Cutaway"
+      }
+    ],
+    "notes": [],
+    "ms": 3562,
+    "model": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "usage": {
+      "cacheReadInputTokenCount": 0,
+      "cacheReadInputTokens": 0,
+      "cacheWriteInputTokenCount": 0,
+      "cacheWriteInputTokens": 0,
+      "inputTokens": 1925,
+      "outputTokens": 194,
+      "serverToolUsage": {},
+      "totalTokens": 2119
+    },
+    "latencyMs": 3406
+  }
+}

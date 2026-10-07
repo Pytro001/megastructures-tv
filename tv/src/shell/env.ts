@@ -17,7 +17,7 @@ export function store(k: string, v: string) { try { localStorage.setItem('megatv
 /** TV performance mode: URL wins, then the saved choice, then the host (on a Fire TV it is on by default) */
 export const TV_MODE = params.has('tv') ? params.get('tv') === '1' : stored('tv') ? stored('tv') === '1' : !!host.tv
 export const DEBUG = params.get('debug') === '1' || stored('debug') === '1'
-export const SHOW_REMOTE = FILM || params.get('remote') === '1'
+export const SHOW_REMOTE = params.get('remote') === '0' ? false : FILM || params.get('remote') === '1'
 export const API = (params.get('api') ?? host.api ?? '').replace(/\/$/, '')
 
 /** build a link to another page that keeps the flags */
@@ -50,10 +50,17 @@ w.MegaTV = {
   onVoiceError(msg: string) { sink?.error(msg) },
 }
 
-/** film time: every CSS transition and animation is paused and advanced by the film's own clock */
+/**
+ * Film time: every CSS transition and animation is paused and advanced by the film's own clock,
+ * so a frame stepped recording looks the same however slow the screenshots are. An animation
+ * starts at 0 the first time a step sees it.
+ */
+const filmT = new WeakMap<Animation, number>()
 export function stepCssAnimations(dt: number) {
   for (const a of document.getAnimations()) {
-    if (a.playState !== 'paused') a.pause()
-    a.currentTime = ((a.currentTime as number | null) ?? 0) + dt * 1000
+    const t = filmT.has(a) ? filmT.get(a)! + dt * 1000 : 0
+    filmT.set(a, t)
+    a.pause()
+    a.currentTime = t
   }
 }

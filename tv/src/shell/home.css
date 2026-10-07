@@ -51,4 +51,6 @@ body.home kbd { display: inline-flex; align-items: center; justify-content: cent
 .h-toast { position: fixed; left: 50%; top: var(--sy); transform: translate(-50%, 0); padding: calc(var(--u) * 14) calc(var(--u) * 30); border-radius: 999px; background: rgba(10, 12, 18, 0.85);
   font: 600 calc(var(--u) * 30) var(--tv-sans); opacity: 0; pointer-events: none; }
 .h-toast.on { animation: tvToast 2.4s ease forwards; }
-body.home .tv-remote { position: fixed; }
+body.home .tv-remote { position: fixed; left: auto; right: var(--sx); }
+body.home .tv-remote-label { left: auto; right: calc(100% + var(--u) * 20); transform: translateX(calc(var(--u) * 14)); }
+body.home .tv-remote-label.on { transform: none; }

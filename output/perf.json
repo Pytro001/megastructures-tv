@@ -1,0 +1,72 @@
+{
+  "measuredAt": "2026-10-07T17:54:06.162Z",
+  "machine": "Apple Silicon Mac, headless Chromium (ANGLE Metal), 1920x1080, vsync off",
+  "rows": [
+    {
+      "sim": "tbm",
+      "chapter": "street",
+      "mode": "desktop",
+      "fps": 35.24377773579773,
+      "p95": 55.899999999999636,
+      "calls": 303,
+      "tris": 478079,
+      "px": "1920x1080",
+      "scale": 1
+    },
+    {
+      "sim": "tbm",
+      "chapter": "street",
+      "mode": "TV mode",
+      "fps": 56.19603733093777,
+      "p95": 37,
+      "calls": 373,
+      "tris": 482551,
+      "px": "1920x1080",
+      "scale": 1
+    },
+    {
+      "sim": "starship",
+      "chapter": "climb",
+      "mode": "desktop",
+      "fps": 21.95953381231503,
+      "p95": 36.900000000001455,
+      "calls": 248,
+      "tris": 5953940,
+      "px": "1920x1080",
+      "scale": 1
+    },
+    {
+      "sim": "starship",
+      "chapter": "climb",
+      "mode": "TV mode",
+      "fps": 69.9250158099196,
+      "p95": 13.799999999999272,
+      "calls": 248,
+      "tris": 5953940,
+      "px": "1920x1080",
+      "scale": 1
+    },
+    {
+      "sim": "tsunami",
+      "chapter": "city",
+      "mode": "desktop",
+      "fps": 40.93158718128089,
+      "p95": 44.29999999999927,
+      "calls": 66,
+      "tris": 1980187,
+      "px": "1920x1080",
+      "scale": 1
+    },
+    {
+      "sim": "tsunami",
+      "chapter": "city",
+      "mode": "TV mode",
+      "fps": 67.48682586631905,
+      "p95": 26.799999999999272,
+      "calls": 66,
+      "tris": 1234387,
+      "px": "1920x1080",
+      "scale": 1
+    }
+  ]
+}

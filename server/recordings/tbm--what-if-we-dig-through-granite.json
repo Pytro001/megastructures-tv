@@ -1,0 +1,50 @@
+{
+  "sim": "tbm",
+  "question": "What if we dig through granite?",
+  "recordedAt": "2026-10-07T17:58:45.182Z",
+  "rawToolCalls": [
+    {
+      "name": "setParam",
+      "input": {
+        "sim": "tbm",
+        "param": "ground",
+        "value": "granite"
+      }
+    },
+    {
+      "name": "explain",
+      "input": {
+        "text": "You're already watching granite, the hardest rock. Notice the machine advances only 6.2 millimeters per turn because granite has a strength of 180 megapascals."
+      }
+    }
+  ],
+  "response": {
+    "source": "bedrock",
+    "question": "What if we dig through granite?",
+    "say": "You're already watching granite, the hardest rock. Notice the machine advances only 6.2 millimeters per turn because granite has a strength of 180 megapascals.",
+    "actions": [
+      {
+        "type": "setParam",
+        "sim": "tbm",
+        "param": "ground",
+        "value": "granite",
+        "label": "Ground",
+        "display": "Granite"
+      }
+    ],
+    "notes": [],
+    "ms": 3678,
+    "model": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+    "usage": {
+      "cacheReadInputTokenCount": 0,
+      "cacheReadInputTokens": 0,
+      "cacheWriteInputTokenCount": 0,
+      "cacheWriteInputTokens": 0,
+      "inputTokens": 2041,
+      "outputTokens": 144,
+      "serverToolUsage": {},
+      "totalTokens": 2185
+    },
+    "latencyMs": 3492
+  }
+}

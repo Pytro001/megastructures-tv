@@ -83,8 +83,9 @@ const focus = new FocusEngine(document.querySelector('.h-safe') as HTMLElement, 
     const s = sims.find(x => x.id === el.dataset.id)!
     if (!s.live || !('page' in s)) { toast(`${s.title} is coming to TV next`); return }
     el.classList.add('opening')
+    if (FILM) return // the film recorder cuts to the film page itself
     document.body.classList.add('leaving')
-    setTimeout(() => { location.href = link((s as { page: string }).page) }, FILM ? 0 : 380)
+    setTimeout(() => { location.href = link((s as { page: string }).page) }, 380)
   },
 })
 if (params.get('focus') === 'tv-set') focus.refresh('[data-set="tv"]')
@@ -113,6 +114,7 @@ onRemote(e => {
 let last = performance.now()
 function tick(dt: number) { remote.tick(dt); if (FILM) stepCssAnimations(dt) }
 if (FILM) {
+  stepCssAnimations(0)
   ;(window as unknown as { __film: unknown }).__film = { ready: true, step: (dt: number, n = 1) => { for (let i = 0; i < n; i++) tick(dt) } }
 } else {
   const loop = (now: number) => { tick(Math.min(0.05, (now - last) / 1000)); last = now; requestAnimationFrame(loop) }

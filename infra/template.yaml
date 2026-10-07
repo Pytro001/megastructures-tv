@@ -1,0 +1,89 @@
+# AWS SAM template for the Megastructures TV answer service.
+# STATUS: written and validated by eye only. NOT deployed: the build machine had a Bedrock API key
+# but no AWS SigV4 credentials, so `sam deploy` could not run. See README, "AWS deployment".
+#
+#   sam build -t infra/template.yaml
+#   sam deploy --guided --parameter-overrides BedrockApiKeySecretArn=arn:aws:secretsmanager:...
+#
+# Fire TV app -> API Gateway (HTTP API) -> Lambda (server/lambda.mjs, the same routes as the local
+# server) -> Amazon Bedrock (Claude, Converse API, tool use). Amazon Polly speaks answers when
+# TTS_PROVIDER=polly. An S3 bucket holds the film catalog and posters for over the air updates.
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Megastructures TV answer service (Bedrock tool use, Polly speech, S3 content)
+
+Parameters:
+  BedrockModelId:
+    Type: String
+    Default: us.anthropic.claude-sonnet-4-5-20250929-v1:0
+  BedrockApiKeySecretArn:
+    Type: String
+    Description: Secrets Manager ARN holding a Bedrock API key (used as AWS_BEARER_TOKEN_BEDROCK)
+  PollyVoice:
+    Type: String
+    Default: Joanna
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Architectures: [arm64]
+    MemorySize: 512
+    Timeout: 30
+
+Resources:
+  ContentBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  AskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../
+      Handler: server/lambda.handler
+      Description: POST /api/ask, POST /api/tts, GET /api/config
+      Environment:
+        Variables:
+          BEDROCK_CLAUDE_MODEL: !Ref BedrockModelId
+          VOICE_MODE: ask
+          TTS_PROVIDER: polly
+          POLLY_VOICE: !Ref PollyVoice
+          CONTENT_BUCKET: !Ref ContentBucket
+          # resolved at deploy time from Secrets Manager
+          AWS_BEARER_TOKEN_BEDROCK: !Sub '{{resolve:secretsmanager:${BedrockApiKeySecretArn}:SecretString}}'
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: [bedrock:InvokeModel, bedrock:InvokeModelWithResponseStream]
+              Resource: '*'
+            - Effect: Allow
+              Action: [polly:SynthesizeSpeech]
+              Resource: '*'
+        - S3ReadPolicy:
+            BucketName: !Ref ContentBucket
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref TvApi
+            Path: /api/{proxy+}
+            Method: ANY
+
+  TvApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins: ['*']
+        AllowMethods: [GET, POST, OPTIONS]
+        AllowHeaders: [content-type]
+
+Outputs:
+  ApiUrl:
+    Description: Set this as megatvApi in android/gradle.properties
+    Value: !Sub 'https://${TvApi}.execute-api.${AWS::Region}.amazonaws.com'
+  ContentBucketName:
+    Value: !Ref ContentBucket

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>megastructures-engine example</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #050608; color: #f2f5fa; font: 28px system-ui, sans-serif; overflow: hidden; }
+      canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+      .menu { position: fixed; left: 5vw; bottom: 5vh; display: flex; gap: 16px; }
+      .menu button { font: inherit; color: #fff; background: rgba(255,255,255,.08); border: 2px solid transparent; border-radius: 999px; padding: 10px 24px; }
+      .menu button.focused { border-color: #fff; background: rgba(255,255,255,.2); }
+      .title { position: fixed; left: 5vw; top: 5vh; font-weight: 750; font-size: 56px; }
+      .tv-fps { position: fixed; right: 5vw; top: 5vh; font: 28px ui-monospace, monospace; background: rgba(0,0,0,.6); padding: 10px 16px; border-radius: 12px; }
+    </style>
+  </head>
+  <body>
+    <canvas id="gl"></canvas>
+    <div class="title">A turned part</div>
+    <nav class="menu"><button data-focus data-shot="0">Front</button><button data-focus data-shot="1">Side</button><button data-focus data-shot="2">Top</button></nav>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

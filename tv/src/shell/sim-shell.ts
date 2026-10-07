@@ -49,6 +49,8 @@ export function mountShell(h: SimHandle): Shell {
   const info = catalog.sims.find(s => s.id === h.id)!
   document.body.classList.add('tv-on')
   if (FILM) document.body.classList.add('tv-film')
+  // ?clean=1: the picture only, for posters
+  if (new URLSearchParams(location.search).get('clean') === '1') document.body.classList.add('tv-clean')
   const root = document.createElement('div')
   root.id = 'tv'
   root.innerHTML = `
@@ -124,7 +126,13 @@ export function mountShell(h: SimHandle): Shell {
     if (r.kind === 'control') return `<div class="tv-row tv-btn" data-focus data-id="${r.id}"><div class="tv-row-top"><span>${esc(r.c.label || 'Action')}</span><b></b></div></div>`
     return `<div class="tv-row tv-btn ${r.kind === 'link' ? 'tv-link' : ''}" data-focus data-id="${r.id}"><div class="tv-row-top"><span>${esc(r.label)}</span><b></b></div></div>`
   }).join('')
-  const focus = new FocusEngine(rows)
+  // the drawer scrolls so the focused row is never cut off
+  const focus = new FocusEngine(rows, { onFocus: el => {
+    const top = el.offsetTop, bottom = top + el.offsetHeight // rows is the offsetParent
+    const pad = el.offsetHeight * 0.6
+    if (top - pad < rows.scrollTop) rows.scrollTop = Math.max(0, top - pad)
+    else if (bottom + pad > rows.scrollTop + rows.clientHeight) rows.scrollTop = bottom + pad - rows.clientHeight
+  } })
   const rowOf = (el: HTMLElement | null) => allRows.find(r => r.id === el?.dataset.id)
   function syncDrawer() {
     for (const r of allRows) {
@@ -184,6 +192,8 @@ export function mountShell(h: SimHandle): Shell {
   function openAsk(listenNow = true) {
     askOpen = true
     openDrawer(false)
+    // the film holds while someone asks, like pausing a video to talk
+    h.setAuto(false)
     root.classList.add('tv-ask-open')
     askEl.classList.remove('thinking', 'error')
     askText.textContent = ''
@@ -194,7 +204,7 @@ export function mountShell(h: SimHandle): Shell {
     const src = listen({
       partial: t => setTranscript(t),
       final: t => { setTranscript(t, true); if (t) submit(t) },
-      error: msg => { askEl.classList.remove('listening'); askStatus.textContent = msg === 'not-allowed' ? 'Microphone blocked. Pick a question or type one' : 'Did not catch that. Pick a question or type one' },
+      error: msg => { askEl.classList.remove('listening'); askStatus.textContent = msg === 'not-allowed' ? 'Microphone blocked. Pick a question or type one' : msg === 'unavailable' ? 'No speech recogniser on this device. Pick a question or type one' : 'Did not catch that. Pick a question or type one' },
     })
     if (src === 'none') { askStatus.textContent = 'Pick a question or type one'; askEl.classList.remove('listening') }
     else { askStatus.textContent = 'Listening'; askEl.classList.add('listening') }
@@ -257,13 +267,17 @@ export function mountShell(h: SimHandle): Shell {
   function answer(a: Answer) {
     closeAsk()
     askEl.classList.remove('thinking')
+    // what the viewer saw before the answer: a slider moves from there, even if the jump reset it
+    const seen = new Map(h.controls.filter(c => c.kind === 'slider').map(c => [c.id, (c as Extract<Control, { kind: 'slider' }>).get()]))
     // jumps first, then each change after a beat so the eye can follow it
-    let d = 0
+    let d = 0.5
+    for (const act of a.actions) if (act.type === 'jumpToChapter') apply(act, 0)
     for (const act of a.actions) {
-      if (act.type === 'jumpToChapter') apply(act, 0)
-      else { apply(act, d); d += 0.7 }
+      if (act.type !== 'setParam') continue
+      const c = h.controls.find(x => x.id === act.param)
+      if (c?.kind === 'slider' && seen.has(c.id)) c.set(seen.get(c.id)!)
+      apply(act, d); d += 0.7
     }
-    // sliders start from the value the new chapter set
     for (const tw of tweens) tw.from = tw.c.get()
     ;($('.tv-q') as HTMLElement).textContent = `“${a.question}”`
     ;($('.tv-a') as HTMLElement).textContent = a.say
@@ -273,7 +287,7 @@ export function mountShell(h: SimHandle): Shell {
     ans.classList.add('on')
     root.classList.add('tv-answering')
     ansT = 0
-    ansHold = 6 + a.say.split(/\s+/).length * 0.33
+    ansHold = 4 + a.say.split(/\s+/).length * 0.22
     syncStatus()
     if (!FILM) void speaker.speak(a.say)
   }
@@ -337,7 +351,7 @@ export function mountShell(h: SimHandle): Shell {
     if (cur) cur.style.width = `${(h.isAuto() ? h.progress?.() ?? 0 : 1) * 100}%`
     for (let i = tweens.length - 1; i >= 0; i--) {
       const tw = tweens[i]
-      if (tw.delay > 0) { tw.delay -= dt; if (tw.delay <= 0) tw.from = tw.c.get(); continue }
+      if (tw.delay > 0) { tw.delay -= dt; continue }
       tw.t += dt
       const u = Math.min(1, tw.t / tw.dur)
       tw.c.set(tw.from + (tw.to - tw.from) * ease(u))
@@ -360,5 +374,7 @@ export function mountShell(h: SimHandle): Shell {
     time: () => T,
   }
   ;(window as unknown as { __tv: ShellApi }).__tv = api
+  // for scripts/perf.mjs: what the frame rate overlay measures, without showing it
+  ;(window as unknown as { __perf: () => unknown }).__perf = () => ({ ...fps.stats, scale: h.getScale(), tv: TV_MODE })
   return { tick, api }
 }

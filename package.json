@@ -5,7 +5,9 @@
   "type": "module",
   "license": "MIT",
   "description": "Interactive engineering films for Fire TV: D-pad chapters, a TV performance mode and a voice question loop that changes the live simulation.",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "dev:tv": "vite --config tv/vite.config.mjs",
@@ -16,7 +18,8 @@
     "test:unit": "node --test server/test/*.test.mjs",
     "perf": "node scripts/perf.mjs",
     "record:answers": "node --env-file-if-exists=.env scripts/record-answers.mjs",
-    "film": "node scripts/film.mjs"
+    "film": "node scripts/film.mjs",
+    "build:android": "vite build --config tv/vite.config.mjs && node scripts/copy-android.mjs"
   },
   "dependencies": {
     "megastructures-engine": "0.1.0",
